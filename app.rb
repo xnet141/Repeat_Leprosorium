@@ -46,3 +46,6 @@ post '/new' do
 
 	redirect to '/'	
 end
+
+
+
