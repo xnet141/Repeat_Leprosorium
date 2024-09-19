@@ -1,0 +1,22 @@
+<h4>Post details:</h4>
+
+<% @result_com.each do |comment| %>
+	<p>
+		<%= comment['content'] %>
+		<br />
+		<br />
+		Added at: <%= comment['created_date'] %>	
+		<br />
+		<br />
+		<a href="/details/<%= comment['id'] %>">New Comments</a>
+	</p>
+	<hr />
+<% end %>
+
+<p>
+	<form action="/details/<%= @post_id %>" method="POST" role="form" style="width: 400px">
+			<textarea name="comment" class="form-control" rows="6" placeholder="Leave a post here" id="floatingTextarea"></textarea>
+			<br />
+			<button type="submit" class="btn btn-success">Submit</button>
+	</form>
+</p>

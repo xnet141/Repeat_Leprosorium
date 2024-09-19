@@ -21,12 +21,19 @@ configure do
 		created_date DATE, 
 		content TEXT
 	)'
+
+	@db.execute 'CREATE TABLE if not exists Comments  
+	(
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		created_date DATE, 
+		content TEXT
+	)'
 end
 
 
 get '/' do
 	@result = @db.execute 'select * from Posts order by id desc'	
-
+	
 	erb :index
 end												
 
@@ -47,11 +54,22 @@ post '/new' do
 	redirect to '/'	
 end
 
-get '/details/:post_id' do
-	post_id = params[:post_id]
-	erb "Displaying results.... id:  #{post_id} "
+get '/details/:post_id' do # получаем параметр из url
+	@post_id = params[:post_id]
+
+	@result_com = @db.execute 'select * from Comments order by id desc'
+	#erb "Displaying results.... id:  #{post_id} "
+	erb :details
 end
 
+post '/details/:post_id' do 
+	#@post_id = params[:post_id]
+	comment = params[:comment]
+	@db.execute 'insert into Comments (content, created_date) values (?, datetime())', [comment]
+	#erb "Displaying results.... id:  #{post_id} "
+	@result_com = @db.execute 'select * from Comments order by id desc'
+	erb :details
+end
 
 
 
