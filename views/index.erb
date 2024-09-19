@@ -1,1 +1,5 @@
 <h2>Latest posts:</h2>
+
+<% @result.each do |row| %>
+	<p><%=" #{row['id']}, #{row['created_date']}, #{row['content']} "%></p>
+<% end %>
