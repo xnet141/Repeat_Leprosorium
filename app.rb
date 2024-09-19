@@ -29,10 +29,16 @@ get '/' do
 end
 
 get '/new' do
-  erb :new
+	erb :new
 end
 
 post '/new' do
-	@content = params[:content]	
-	erb :new  
-end
+	content = params[:content]	
+
+	if content.length <= 0
+		@error = 'Type text'
+		return erb :new
+	end
+
+	erb "You typed: #{content}"
+	end
